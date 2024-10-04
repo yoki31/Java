@@ -1,16 +1,13 @@
 package com.thealgorithms.datastructures.graphs;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.LinkedHashMap;
 import java.util.HashMap;
-import java.util.Set;
-import java.util.Queue;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
+import java.util.Set;
 
-/**
- * An algorithm that sorts a graph in toplogical order.
- */
 /**
  * A class that represents the adjaceny list of a graph
  */
@@ -54,19 +51,6 @@ class AdjacencyList<E extends Comparable<E>> {
     Set<E> getVertices() {
         return adj.keySet();
     }
-
-    /**
-     * Prints the adjacency list
-     */
-    void printGraph() {
-        for (E vertex : adj.keySet()) {
-            System.out.print(vertex + " : ");
-            for (E adjacent : adj.get(vertex)) {
-                System.out.print(adjacent + " ");
-            }
-            System.out.println();
-        }
-    }
 }
 
 class TopologicalSort<E extends Comparable<E>> {
@@ -104,9 +88,9 @@ class TopologicalSort<E extends Comparable<E>> {
         calculateInDegree();
         Queue<E> q = new LinkedList<E>();
 
-        for (E vertex : inDegree.keySet()) {
-            if (inDegree.get(vertex) == 0) {
-                q.add(vertex);
+        for (final var entry : inDegree.entrySet()) {
+            if (entry.getValue() == 0) {
+                q.add(entry.getKey());
             }
         }
 
@@ -124,18 +108,18 @@ class TopologicalSort<E extends Comparable<E>> {
         }
 
         return answer;
-
     }
 }
 
 /**
  * A driver class that sorts a given graph in topological order.
  */
-public class KahnsAlgorithm {
+public final class KahnsAlgorithm {
+    private KahnsAlgorithm() {
+    }
 
     public static void main(String[] args) {
-
-        //Graph definition and initialization
+        // Graph definition and initialization
         AdjacencyList<String> graph = new AdjacencyList<>();
         graph.addEdge("a", "b");
         graph.addEdge("c", "a");
@@ -146,7 +130,7 @@ public class KahnsAlgorithm {
 
         TopologicalSort<String> topSort = new TopologicalSort<>(graph);
 
-        //Printing the order
+        // Printing the order
         for (String s : topSort.topSortOrder()) {
             System.out.print(s + " ");
         }

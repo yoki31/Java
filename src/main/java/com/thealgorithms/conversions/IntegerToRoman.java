@@ -7,12 +7,40 @@ package com.thealgorithms.conversions;
  * ('I', 1); ('IV',4); ('V', 5); ('IX',9); ('X', 10); ('XL',40); ('L', 50);
  * ('XC',90); ('C', 100); ('D', 500); ('M', 1000);
  */
-public class IntegerToRoman {
+public final class IntegerToRoman {
+    private IntegerToRoman() {
+    }
 
-    private static int[] allArabianRomanNumbers
-            = new int[]{1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
-    private static String[] allRomanNumbers
-            = new String[]{"M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I"};
+    private static final int[] ALL_ROMAN_NUMBERS_IN_ARABIC = new int[] {
+        1000,
+        900,
+        500,
+        400,
+        100,
+        90,
+        50,
+        40,
+        10,
+        9,
+        5,
+        4,
+        1,
+    };
+    private static final String[] ALL_ROMAN_NUMBERS = new String[] {
+        "M",
+        "CM",
+        "D",
+        "CD",
+        "C",
+        "XC",
+        "L",
+        "XL",
+        "X",
+        "IX",
+        "V",
+        "IV",
+        "I",
+    };
 
     // Value must be > 0
     public static String integerToRoman(int num) {
@@ -22,13 +50,13 @@ public class IntegerToRoman {
 
         StringBuilder builder = new StringBuilder();
 
-        for (int a = 0; a < allArabianRomanNumbers.length; a++) {
-            int times = num / allArabianRomanNumbers[a];
+        for (int a = 0; a < ALL_ROMAN_NUMBERS_IN_ARABIC.length; a++) {
+            int times = num / ALL_ROMAN_NUMBERS_IN_ARABIC[a];
             for (int b = 0; b < times; b++) {
-                builder.append(allRomanNumbers[a]);
+                builder.append(ALL_ROMAN_NUMBERS[a]);
             }
 
-            num -= times * allArabianRomanNumbers[a];
+            num -= times * ALL_ROMAN_NUMBERS_IN_ARABIC[a];
         }
 
         return builder.toString();

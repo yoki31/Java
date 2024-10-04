@@ -11,20 +11,20 @@ public class NodeStack<Item> {
      * Entry point for the program.
      */
     public static void main(String[] args) {
-        NodeStack<Integer> Stack = new NodeStack<Integer>();
+        NodeStack<Integer> stack = new NodeStack<Integer>();
 
-        Stack.push(3);
-        Stack.push(4);
-        Stack.push(5);
+        stack.push(3);
+        stack.push(4);
+        stack.push(5);
         System.out.println("Testing :");
-        Stack.print(); // prints : 5 4 3
+        stack.print(); // prints : 5 4 3
 
-        Integer x = Stack.pop(); // x = 5
-        Stack.push(1);
-        Stack.push(8);
-        Integer y = Stack.peek(); // y = 8
+        Integer x = stack.pop(); // x = 5
+        stack.push(1);
+        stack.push(8);
+        Integer y = stack.peek(); // y = 8
         System.out.println("Testing :");
-        Stack.print(); // prints : 8 1 4 3
+        stack.print(); // prints : 8 1 4 3
 
         System.out.println("Testing :");
         System.out.println("x : " + x);
@@ -43,7 +43,6 @@ public class NodeStack<Item> {
     private Item data;
 
     private static NodeStack<?> head;
-    private NodeStack<?> next;
     private NodeStack<?> previous;
     private static int size = 0;
 
@@ -63,7 +62,6 @@ public class NodeStack<Item> {
      * @param item : value to be put on the stack.
      */
     public void push(Item item) {
-
         NodeStack<Item> newNs = new NodeStack<Item>(item);
 
         if (this.isEmpty()) {
@@ -73,7 +71,7 @@ public class NodeStack<Item> {
         } else {
             newNs.setPrevious(NodeStack.head);
             NodeStack.head.setNext(newNs);
-            NodeStack.head.setHead(newNs);
+            NodeStack.setHead(newNs);
         }
 
         NodeStack.setSize(NodeStack.getSize() + 1);
@@ -85,10 +83,9 @@ public class NodeStack<Item> {
      * @return item : value that is returned.
      */
     public Item pop() {
-
         Item item = (Item) NodeStack.head.getData();
 
-        NodeStack.head.setHead(NodeStack.head.getPrevious());
+        NodeStack.setHead(NodeStack.head.getPrevious());
         NodeStack.head.setNext(null);
 
         NodeStack.setSize(NodeStack.getSize() - 1);
@@ -135,23 +132,11 @@ public class NodeStack<Item> {
         }
     }
 
-    /**
-     * Getters and setters (private)
-     */
-    private NodeStack<?> getHead() {
-        return NodeStack.head;
-    }
-
     private static void setHead(NodeStack<?> ns) {
         NodeStack.head = ns;
     }
 
-    private NodeStack<?> getNext() {
-        return next;
-    }
-
     private void setNext(NodeStack<?> next) {
-        this.next = next;
     }
 
     private NodeStack<?> getPrevious() {
@@ -172,9 +157,5 @@ public class NodeStack<Item> {
 
     private Item getData() {
         return this.data;
-    }
-
-    private void setData(Item item) {
-        this.data = item;
     }
 }

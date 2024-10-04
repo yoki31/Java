@@ -15,15 +15,15 @@ import java.util.PriorityQueue;
 
 public class Kruskal {
 
-    // Complexity: O(E log V) time, where E is the number of edges in the graph and V is the number of
-    // vertices
+    // Complexity: O(E log V) time, where E is the number of edges in the graph and V is the number
+    // of vertices
     private static class Edge {
 
         private int from;
         private int to;
         private int weight;
 
-        public Edge(int from, int to, int weight) {
+        Edge(int from, int to, int weight) {
             this.from = from;
             this.to = to;
             this.weight = weight;
@@ -87,8 +87,7 @@ public class Kruskal {
         while (connectedElements != nodes && !edges.isEmpty()) {
             Edge edge = edges.poll();
             // This if avoids cycles
-            if (!connectedGroups[captain[edge.from]].contains(edge.to)
-                    && !connectedGroups[captain[edge.to]].contains(edge.from)) {
+            if (!connectedGroups[captain[edge.from]].contains(edge.to) && !connectedGroups[captain[edge.to]].contains(edge.from)) {
                 // merge sets of the captains of each point connected by the edge
                 connectedGroups[captain[edge.from]].addAll(connectedGroups[captain[edge.to]]);
                 // update captains of the elements merged

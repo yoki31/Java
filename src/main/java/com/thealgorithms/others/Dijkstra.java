@@ -1,5 +1,9 @@
 package com.thealgorithms.others;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.NavigableSet;
+import java.util.TreeSet;
 /**
  * Dijkstra's algorithm,is a graph search algorithm that solves the
  * single-source shortest path problem for a graph with nonnegative edge path
@@ -15,9 +19,9 @@ package com.thealgorithms.others;
  * https://rosettacode.org/wiki/Dijkstra%27s_algorithm#Java Also most of the
  * comments are from RosettaCode.
  */
-import java.util.*;
-
-public class Dijkstra {
+public final class Dijkstra {
+    private Dijkstra() {
+    }
 
     private static final Graph.Edge[] GRAPH = {
         // Distance from node "a" to node "b" is 7.
@@ -31,7 +35,8 @@ public class Dijkstra {
         new Graph.Edge("c", "d", 11),
         new Graph.Edge("c", "f", 2),
         new Graph.Edge("d", "e", 6),
-        new Graph.Edge("e", "f", 9),};
+        new Graph.Edge("e", "f", 9),
+    };
     private static final String START = "a";
     private static final String END = "e";
 
@@ -47,6 +52,7 @@ public class Dijkstra {
 }
 
 class Graph {
+
     // mapping of vertex names to Vertex objects, built from a set of Edges
 
     private final Map<String, Vertex> graph;
@@ -56,10 +62,11 @@ class Graph {
      */
     public static class Edge {
 
-        public final String v1, v2;
+        public final String v1;
+        public final String v2;
         public final int dist;
 
-        public Edge(String v1, String v2, int dist) {
+        Edge(String v1, String v2, int dist) {
             this.v1 = v1;
             this.v2 = v2;
             this.dist = dist;
@@ -77,7 +84,7 @@ class Graph {
         public Vertex previous = null;
         public final Map<Vertex, Integer> neighbours = new HashMap<>();
 
-        public Vertex(String name) {
+        Vertex(String name) {
             this.name = name;
         }
 
@@ -123,11 +130,7 @@ class Graph {
             if (previous != null ? !previous.equals(vertex.previous) : vertex.previous != null) {
                 return false;
             }
-            if (neighbours != null ? !neighbours.equals(vertex.neighbours) : vertex.neighbours != null) {
-                return false;
-            }
-
-            return true;
+            return neighbours != null ? neighbours.equals(vertex.neighbours) : vertex.neighbours == null;
         }
 
         @Override
@@ -149,7 +152,7 @@ class Graph {
     /**
      * Builds a graph from a set of edges
      */
-    public Graph(Edge[] edges) {
+    Graph(Edge[] edges) {
         graph = new HashMap<>(edges.length);
 
         // one pass to find all vertices
@@ -165,8 +168,8 @@ class Graph {
         // another pass to set neighbouring vertices
         for (Edge e : edges) {
             graph.get(e.v1).neighbours.put(graph.get(e.v2), e.dist);
-            // graph.get(e.v2).neighbours.put(graph.get(e.v1), e.dist); // also do this for an undirected
-            // graph
+            // graph.get(e.v2).neighbours.put(graph.get(e.v1), e.dist); // also do this for an
+            // undirected graph
         }
     }
 
@@ -195,12 +198,14 @@ class Graph {
      * Implementation of dijkstra's algorithm using a binary heap.
      */
     private void dijkstra(final NavigableSet<Vertex> q) {
-        Vertex u, v;
+        Vertex u;
+        Vertex v;
         while (!q.isEmpty()) {
             // vertex with shortest distance (first iteration will return source)
             u = q.pollFirst();
             if (u.dist == Integer.MAX_VALUE) {
-                break; // we can ignore u (and any other remaining vertices) since they are unreachable
+                break; // we can ignore u (and any other remaining vertices) since they are
+                       // unreachable
             }
             // look at distances to each neighbour
             for (Map.Entry<Vertex, Integer> a : u.neighbours.entrySet()) {

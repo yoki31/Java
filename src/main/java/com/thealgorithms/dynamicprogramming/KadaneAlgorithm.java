@@ -1,54 +1,36 @@
 package com.thealgorithms.dynamicprogramming;
 
-import java.util.Scanner;
-
 /**
- * Program to implement Kadane’s Algorithm to calculate maximum contiguous
- * subarray sum of an array Time Complexity: O(n)
- *
- * @author Nishita Aggarwal
+ * @author <a href="https://github.com/siddhant2002">Siddhant Swarup Mallick</a>
+ * Program description - To find the maximum subarray sum
  */
-public class KadaneAlgorithm {
-
-    /**
-     * This method implements Kadane's Algorithm
-     *
-     * @param arr The input array
-     * @return The maximum contiguous subarray sum of the array
-     */
-    static int largestContiguousSum(int arr[]) {
-        int i, len = arr.length, cursum = 0, maxsum = Integer.MIN_VALUE;
-        if (len == 0) // empty array
-        {
-            return 0;
-        }
-        for (i = 0; i < len; i++) {
-            cursum += arr[i];
-            if (cursum > maxsum) {
-                maxsum = cursum;
-            }
-            if (cursum <= 0) {
-                cursum = 0;
-            }
-        }
-        return maxsum;
+public final class KadaneAlgorithm {
+    private KadaneAlgorithm() {
     }
 
     /**
-     * Main method
-     *
-     * @param args Command line arguments
+     * OUTPUT :
+     * Input - {89,56,98,123,26,75,12,40,39,68,91}
+     * Output: it returns either true or false
+     * 1st approach Time Complexity : O(n)
+     * Auxiliary Space Complexity : O(1)
      */
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n, arr[], i;
-        n = sc.nextInt();
-        arr = new int[n];
-        for (i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
+    public static boolean maxSum(int[] a, int predictedAnswer) {
+        int sum = a[0];
+        int runningSum = 0;
+        for (int k : a) {
+            runningSum = runningSum + k;
+            // running sum of all the indexs are stored
+            sum = Math.max(sum, runningSum);
+            // the max is stored inorder to the get the maximum sum
+            if (runningSum < 0) {
+                runningSum = 0;
+            }
+            // if running sum is negative then it is initialized to zero
         }
-        int maxContSum = largestContiguousSum(arr);
-        System.out.println(maxContSum);
-        sc.close();
+        // for-each loop is used to iterate over the array and find the maximum subarray sum
+        return sum == predictedAnswer;
+        // It returns true if sum and predicted answer matches
+        // The predicted answer is the answer itself. So it always return true
     }
 }

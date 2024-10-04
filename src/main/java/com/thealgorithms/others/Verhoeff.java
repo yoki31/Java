@@ -23,7 +23,9 @@ import java.util.Objects;
  * @see <a href="https://en.wikipedia.org/wiki/Verhoeff_algorithm">Wiki.
  * Verhoeff algorithm</a>
  */
-public class Verhoeff {
+public final class Verhoeff {
+    private Verhoeff() {
+    }
 
     /**
      * Table {@code d}. Based on multiplication in the dihedral group D5 and is
@@ -44,14 +46,25 @@ public class Verhoeff {
         {6, 5, 9, 8, 7, 1, 0, 4, 3, 2},
         {7, 6, 5, 9, 8, 2, 1, 0, 4, 3},
         {8, 7, 6, 5, 9, 3, 2, 1, 0, 4},
-        {9, 8, 7, 6, 5, 4, 3, 2, 1, 0}
+        {9, 8, 7, 6, 5, 4, 3, 2, 1, 0},
     };
 
     /**
      * The inverse table {@code inv}. Represents the multiplicative inverse of a
      * digit, that is, the value that satisfies {@code d(j, inv(j)) = 0}.
      */
-    private static final byte[] MULTIPLICATIVE_INVERSE = {0, 4, 3, 2, 1, 5, 6, 7, 8, 9};
+    private static final byte[] MULTIPLICATIVE_INVERSE = {
+        0,
+        4,
+        3,
+        2,
+        1,
+        5,
+        6,
+        7,
+        8,
+        9,
+    };
 
     /**
      * The permutation table {@code p}. Applies a permutation to each digit
@@ -67,7 +80,7 @@ public class Verhoeff {
         {9, 4, 5, 3, 1, 2, 6, 8, 7, 0},
         {4, 2, 8, 6, 5, 7, 3, 9, 0, 1},
         {2, 7, 9, 3, 8, 0, 6, 4, 1, 5},
-        {7, 0, 4, 6, 9, 1, 3, 2, 5, 8}
+        {7, 0, 4, 6, 9, 1, 3, 2, 5, 8},
     };
 
     /**
@@ -136,9 +149,7 @@ public class Verhoeff {
     }
 
     private static void checkAndPrint(String input) {
-        String validationResult = Verhoeff.verhoeffCheck(input)
-                ? "valid"
-                : "not valid";
+        String validationResult = Verhoeff.verhoeffCheck(input) ? "valid" : "not valid";
         System.out.println("Input '" + input + "' is " + validationResult);
     }
 
@@ -155,8 +166,6 @@ public class Verhoeff {
     }
 
     private static int[] toIntArray(String string) {
-        return string.chars()
-                .map(i -> Character.digit(i, 10))
-                .toArray();
+        return string.chars().map(i -> Character.digit(i, 10)).toArray();
     }
 }

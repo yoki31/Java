@@ -2,7 +2,10 @@ package com.thealgorithms.searches;
 
 import java.util.Scanner;
 
-public class LinearSearchThread {
+public final class LinearSearchThread {
+    private LinearSearchThread() {
+    }
+
     public static void main(String[] args) {
         int[] list = new int[200];
         for (int j = 0; j < list.length; j++) {
@@ -32,12 +35,15 @@ public class LinearSearchThread {
         }
         boolean found = t.getResult() || t1.getResult() || t2.getResult() || t3.getResult();
         System.out.println("Found = " + found);
+        in.close();
     }
 }
 
 class Searcher extends Thread {
+
     private final int[] arr;
-    private final int left, right;
+    private final int left;
+    private final int right;
     private final int x;
     private boolean found;
 

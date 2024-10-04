@@ -2,7 +2,7 @@ package com.thealgorithms.datastructures.lists;
 
 public class CircleLinkedList<E> {
 
-    private static class Node<E> {
+    private static final class Node<E> {
 
         Node<E> next;
         E value;
@@ -19,7 +19,7 @@ public class CircleLinkedList<E> {
     private Node<E> head = null;
     private Node<E> tail = null; // keeping a tail pointer to keep track of the end of list
 
-    // constructer for class.. here we will make a dummy node for circly linked list implementation
+    // constructor for class.. here we will make a dummy node for circly linked list implementation
     // with reduced error catching as our list will never be empty;
     public CircleLinkedList() {
         // creation of the dummy node
@@ -51,34 +51,25 @@ public class CircleLinkedList<E> {
         size++;
     }
 
-    // utility function for teraversing the list
     public String toString() {
-        Node p = head.next;
-        String s = "[ ";
-        while (p != head) {
-            s += p.value;
-            s += " , ";
-            p = p.next;
+        if (size == 0) {
+            return "[]";
         }
-        return s + " ]";
-    }
-
-    public static void main(String args[]) {
-        CircleLinkedList cl = new CircleLinkedList<Integer>();
-        cl.append(12);
-        System.out.println(cl);
-        cl.append(23);
-        System.out.println(cl);
-        cl.append(34);
-        System.out.println(cl);
-        cl.append(56);
-        System.out.println(cl);
-        cl.remove(3);
-        System.out.println(cl);
+        StringBuilder sb = new StringBuilder("[ ");
+        Node<E> current = head.next;
+        while (current != head) {
+            sb.append(current.value);
+            if (current.next != head) {
+                sb.append(", ");
+            }
+            current = current.next;
+        }
+        sb.append(" ]");
+        return sb.toString();
     }
 
     public E remove(int pos) {
-        if (pos > size || pos < 0) {
+        if (pos >= size || pos < 0) {
             // catching errors
             throw new IndexOutOfBoundsException("position cannot be greater than size or negative");
         }
@@ -90,7 +81,7 @@ public class CircleLinkedList<E> {
         }
         Node<E> destroy = before.next;
         E saved = destroy.value;
-        // assigning the next reference to the the element following the element we want to remove...
+        // assigning the next reference to the element following the element we want to remove...
         // the last element will be assigned to the head.
         before.next = before.next.next;
         // scrubbing

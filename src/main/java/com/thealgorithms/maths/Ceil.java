@@ -1,15 +1,7 @@
 package com.thealgorithms.maths;
 
-import java.util.Random;
-
-public class Ceil {
-
-    public static void main(String[] args) {
-        Random random = new Random();
-        for (int i = 1; i <= 1000; ++i) {
-            double randomNumber = random.nextDouble();
-            assert ceil(randomNumber) == Math.ceil(randomNumber);
-        }
+public final class Ceil {
+    private Ceil() {
     }
 
     /**

@@ -1,6 +1,6 @@
 package com.thealgorithms.others;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,7 +23,9 @@ import javax.imageio.ImageIO;
  * also https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
  * )
  */
-public class Mandelbrot {
+public final class Mandelbrot {
+    private Mandelbrot() {
+    }
 
     public static void main(String[] args) {
         // Test black and white
@@ -70,14 +72,7 @@ public class Mandelbrot {
      * @param useDistanceColorCoding Render in color or black and white.
      * @return The image of the rendered Mandelbrot set.
      */
-    public static BufferedImage getImage(
-            int imageWidth,
-            int imageHeight,
-            double figureCenterX,
-            double figureCenterY,
-            double figureWidth,
-            int maxStep,
-            boolean useDistanceColorCoding) {
+    public static BufferedImage getImage(int imageWidth, int imageHeight, double figureCenterX, double figureCenterY, double figureWidth, int maxStep, boolean useDistanceColorCoding) {
         if (imageWidth <= 0) {
             throw new IllegalArgumentException("imageWidth should be greater than zero");
         }
@@ -103,12 +98,7 @@ public class Mandelbrot {
                 double distance = getDistance(figureX, figureY, maxStep);
 
                 // color the corresponding pixel based on the selected coloring-function
-                image.setRGB(
-                        imageX,
-                        imageY,
-                        useDistanceColorCoding
-                                ? colorCodedColorMap(distance).getRGB()
-                                : blackAndWhiteColorMap(distance).getRGB());
+                image.setRGB(imageX, imageY, useDistanceColorCoding ? colorCodedColorMap(distance).getRGB() : blackAndWhiteColorMap(distance).getRGB());
             }
         }
 
@@ -151,18 +141,18 @@ public class Mandelbrot {
             int t = (int) (val * (1 - (1 - f) * saturation));
 
             switch (hi) {
-                case 0:
-                    return new Color(v, t, p);
-                case 1:
-                    return new Color(q, v, p);
-                case 2:
-                    return new Color(p, v, t);
-                case 3:
-                    return new Color(p, q, v);
-                case 4:
-                    return new Color(t, p, v);
-                default:
-                    return new Color(v, p, q);
+            case 0:
+                return new Color(v, t, p);
+            case 1:
+                return new Color(q, v, p);
+            case 2:
+                return new Color(p, v, t);
+            case 3:
+                return new Color(p, q, v);
+            case 4:
+                return new Color(t, p, v);
+            default:
+                return new Color(v, p, q);
             }
         }
     }

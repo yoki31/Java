@@ -16,7 +16,9 @@ import java.util.Scanner;
  *
  * @author Nishita Aggarwal
  */
-public class SaddlebackSearch {
+public final class SaddlebackSearch {
+    private SaddlebackSearch() {
+    }
 
     /**
      * This method performs Saddleback Search
@@ -28,10 +30,9 @@ public class SaddlebackSearch {
      * @return The index(row and column) of the element if found. Else returns
      * -1 -1.
      */
-    private static int[] find(int arr[][], int row, int col, int key) {
-
+    private static int[] find(int[][] arr, int row, int col, int key) {
         // array to store the answer row and column
-        int ans[] = {-1, -1};
+        int[] ans = {-1, -1};
         if (row < 0 || col >= arr[row].length) {
             return ans;
         }
@@ -55,8 +56,11 @@ public class SaddlebackSearch {
     public static void main(String[] args) {
         // TODO Auto-generated method stub
         Scanner sc = new Scanner(System.in);
-        int arr[][];
-        int i, j, rows = sc.nextInt(), col = sc.nextInt();
+        int[][] arr;
+        int i;
+        int j;
+        int rows = sc.nextInt();
+        int col = sc.nextInt();
         arr = new int[rows][col];
         for (i = 0; i < rows; i++) {
             for (j = 0; j < col; j++) {
@@ -65,7 +69,7 @@ public class SaddlebackSearch {
         }
         int ele = sc.nextInt();
         // we start from bottom left corner
-        int ans[] = find(arr, rows - 1, 0, ele);
+        int[] ans = find(arr, rows - 1, 0, ele);
         System.out.println(ans[0] + " " + ans[1]);
         sc.close();
     }

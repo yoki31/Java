@@ -8,18 +8,18 @@ import java.util.List;
  * which N queens can be placed on the board such no two queens attack each
  * other. Ex. N = 6 Solution= There are 4 possible ways Arrangement: 1 ".Q....",
  * "...Q..", ".....Q", "Q.....", "..Q...", "....Q."
- * <p>
+ *
  * Arrangement: 2 "..Q...", ".....Q", ".Q....", "....Q.", "Q.....", "...Q.."
- * <p>
+ *
  * Arrangement: 3 "...Q..", "Q.....", "....Q.", ".Q....", ".....Q", "..Q..."
- * <p>
+ *
  * Arrangement: 4 "....Q.", "..Q...", "Q.....", ".....Q", "...Q..", ".Q...."
  *
  * Solution: Brute Force approach:
  *
  * Generate all possible arrangement to place N queens on N*N board. Check each
  * board if queens are placed safely. If it is safe, include arrangement in
- * solution set. Otherwise ignore it
+ * solution set. Otherwise, ignore it
  *
  * Optimized solution: This can be solved using backtracking in below steps
  *
@@ -32,15 +32,14 @@ import java.util.List;
  * queen is not placed safely. If there is no such way then return an empty list
  * as solution
  */
-public class NQueens {
+public final class NQueens {
+    private NQueens() {
+    }
 
-    public static void main(String[] args) {
-        placeQueens(1);
-        placeQueens(2);
-        placeQueens(3);
-        placeQueens(4);
-        placeQueens(5);
-        placeQueens(6);
+    public static List<List<String>> getNQueensArrangements(int queens) {
+        List<List<String>> arrangements = new ArrayList<>();
+        getSolution(queens, arrangements, new int[queens], 0);
+        return arrangements;
     }
 
     public static void placeQueens(final int queens) {
@@ -51,10 +50,10 @@ public class NQueens {
         } else {
             System.out.println("Arrangement for placing " + queens + " queens");
         }
-        arrangements.forEach(arrangement -> {
-            arrangement.forEach(row -> System.out.println(row));
+        for (List<String> arrangement : arrangements) {
+            arrangement.forEach(System.out::println);
             System.out.println();
-        });
+        }
     }
 
     /**
@@ -84,7 +83,8 @@ public class NQueens {
         for (int rowIndex = 0; rowIndex < boardSize; rowIndex++) {
             columns[columnIndex] = rowIndex;
             if (isPlacedCorrectly(columns, rowIndex, columnIndex)) {
-                // If queen is placed successfully at rowIndex in column=columnIndex then try placing queen in next column
+                // If queen is placed successfully at rowIndex in column=columnIndex then try
+                // placing queen in next column
                 getSolution(boardSize, solutions, columns, columnIndex + 1);
             }
         }

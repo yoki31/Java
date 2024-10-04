@@ -1,6 +1,8 @@
 package com.thealgorithms.maths;
 
-public class BinaryPow {
+public final class BinaryPow {
+    private BinaryPow() {
+    }
 
     /**
      * Calculate a^p using binary exponentiation
@@ -20,30 +22,5 @@ public class BinaryPow {
             p >>>= 1;
         }
         return res;
-    }
-
-    /**
-     * Function for testing binary exponentiation
-     *
-     * @param a the base
-     * @param p the exponent
-     */
-    public static void test(int a, int p) {
-        int res = binPow(a, p);
-        assert res == (int) Math.pow(a, p) : "Incorrect Implementation";
-        System.out.println(a + "^" + p + ": " + res);
-    }
-
-    /**
-     * Main Function to call tests
-     *
-     * @param args System Line Arguments
-     */
-    public static void main(String[] args) {
-        // prints 2^15: 32768
-        test(2, 15);
-
-        // prints 3^9: 19683
-        test(3, 9);
     }
 }

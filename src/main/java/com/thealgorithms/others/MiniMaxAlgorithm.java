@@ -42,8 +42,7 @@ public class MiniMaxAlgorithm {
         }
 
         System.out.println(Arrays.toString(miniMaxAlgorith.getScores()));
-        System.out.println(
-                "The best score for " + (isMaximizer ? "Maximizer" : "Minimizer") + " is " + String.valueOf(bestScore));
+        System.out.println("The best score for " + (isMaximizer ? "Maximizer" : "Minimizer") + " is " + bestScore);
     }
 
     /**
@@ -56,7 +55,9 @@ public class MiniMaxAlgorithm {
      * @return The optimal score for the player that made the first move.
      */
     public int miniMax(int depth, boolean isMaximizer, int index, boolean verbose) {
-        int bestScore, score1, score2;
+        int bestScore;
+        int score1;
+        int score2;
 
         if (depth == height) { // Leaf node reached.
             return scores[index];
@@ -79,8 +80,7 @@ public class MiniMaxAlgorithm {
         // (1 x 2) = 2; ((1 x 2) + 1) = 3
         // (2 x 2) = 4; ((2 x 2) + 1) = 5 ...
         if (verbose) {
-            System.out.println(String.format("From %02d and %02d, %s chooses %02d", score1, score2,
-                    (isMaximizer ? "Maximizer" : "Minimizer"), bestScore));
+            System.out.printf("From %02d and %02d, %s chooses %02d%n", score1, score2, (isMaximizer ? "Maximizer" : "Minimizer"), bestScore);
         }
 
         return bestScore;

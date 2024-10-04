@@ -1,24 +1,20 @@
 package com.thealgorithms.others;
 
-import java.util.Scanner;
-
-public class CountChar {
-
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        System.out.print("Enter your text: ");
-        String str = input.nextLine();
-        input.close();
-        System.out.println("There are " + CountCharacters(str) + " characters.");
+public final class CountChar {
+    private CountChar() {
     }
 
     /**
-     * Count non space character in string
+     * Counts the number of non-whitespace characters in the given string.
      *
-     * @param str String to count the characters
-     * @return number of character in the specified string
+     * @param str the input string to count the characters in
+     * @return the number of non-whitespace characters in the specified string;
+     *         returns 0 if the input string is null
      */
-    private static int CountCharacters(String str) {
+    public static int countCharacters(String str) {
+        if (str == null) {
+            return 0;
+        }
         return str.replaceAll("\\s", "").length();
     }
 }

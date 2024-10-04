@@ -1,51 +1,55 @@
 package com.thealgorithms.others;
 
-import java.util.Scanner;
-
 /**
- * You enter a string into this program, and it will return how many words were
- * in that particular string
- *
  * @author Marcus
  */
-public class CountWords {
-
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter your text: ");
-        String str = input.nextLine();
-
-        System.out.println("Your text has " + wordCount(str) + " word(s)");
-        System.out.println("Your text has " + secondaryWordCount(str) + " word(s)");
-        input.close();
-    }
-
-    private static int wordCount(String s) {
-        if (s == null || s.isEmpty()) {
-            return 0;
-        }
-        return s.trim().split("[\\s]+").length;
+public final class CountWords {
+    private CountWords() {
     }
 
     /**
-     * counts the number of words in a sentence but ignores all potential
-     * non-alphanumeric characters that do not represent a word. runs in O(n)
-     * where n is the length of s
+     * Counts the number of words in the input string. Words are defined as sequences of
+     * characters separated by whitespace.
      *
-     * @param s String: sentence with word(s)
-     * @return int: number of words
+     * @param s the input string
+     * @return the number of words in the input string, or 0 if the string is null or empty
      */
-    private static int secondaryWordCount(String s) {
+    public static int wordCount(String s) {
         if (s == null || s.isEmpty()) {
             return 0;
         }
+        return s.trim().split("\\s+").length;
+    }
+
+    /**
+     * Removes all special characters from the input string, leaving only alphanumeric characters
+     * and whitespace.
+     *
+     * @param s the input string
+     * @return a string containing only alphanumeric characters and whitespace
+     */
+    private static String removeSpecialCharacters(String s) {
         StringBuilder sb = new StringBuilder();
         for (char c : s.toCharArray()) {
-            if (Character.isLetter(c) || Character.isDigit(c)) {
+            if (Character.isLetterOrDigit(c) || Character.isWhitespace(c)) {
                 sb.append(c);
             }
         }
-        s = sb.toString();
-        return s.trim().split("[\\s]+").length;
+        return sb.toString();
+    }
+
+    /**
+     * Counts the number of words in a sentence, ignoring all non-alphanumeric characters that do
+     * not contribute to word formation. This method has a time complexity of O(n), where n is the
+     * length of the input string.
+     *
+     * @param s the input string
+     * @return the number of words in the input string, with special characters removed, or 0 if the string is null
+     */
+    public static int secondaryWordCount(String s) {
+        if (s == null) {
+            return 0;
+        }
+        return wordCount(removeSpecialCharacters(s));
     }
 }

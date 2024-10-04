@@ -44,7 +44,9 @@ import java.util.HashMap;
  * recommend checking out the wikipedia page and professor Anany Levitin's book:
  * Introduction To The Design And Analysis Of Algorithms.
  */
-public class HorspoolSearch {
+public final class HorspoolSearch {
+    private HorspoolSearch() {
+    }
 
     private static HashMap<Character, Integer> shiftValues; // bad symbol table
     private static Integer patternLength;
@@ -96,12 +98,14 @@ public class HorspoolSearch {
         shiftValues = calcShiftValues(pattern); // build the bad symbol table
         comparisons = 0; // reset comparisons
 
-        int textIndex
-                = pattern.length() - 1; // align pattern with text start and get index of the last character
+        if (pattern.length() == 0) { // return failure, if pattern empty
+            return -1;
+        }
+
+        int textIndex = pattern.length() - 1; // align pattern with text start and get index of the last character
 
         // while pattern is not out of text bounds
         while (textIndex < text.length()) {
-
             // try to match pattern with current part of the text starting from last character
             int i = pattern.length() - 1;
             while (i >= 0) {
@@ -155,9 +159,7 @@ public class HorspoolSearch {
         patternLength = pattern.length();
         HashMap<Character, Integer> table = new HashMap<>();
 
-        for (int i = pattern.length() - 2;
-                i >= 0;
-                i--) { // length - 2 is the index of the second to last character
+        for (int i = pattern.length() - 2; i >= 0; i--) { // length - 2 is the index of the second to last character
             char c = pattern.charAt(i);
             int finalI = i;
             table.computeIfAbsent(c, k -> pattern.length() - 1 - finalI);

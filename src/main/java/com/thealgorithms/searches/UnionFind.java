@@ -1,11 +1,13 @@
 package com.thealgorithms.searches;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class UnionFind {
 
-    private int[] p;
-    private int[] r;
+    private final int[] p;
+    private final int[] r;
 
     public UnionFind(int n) {
         p = new int[n];
@@ -23,7 +25,10 @@ public class UnionFind {
             return i;
         }
 
-        return p[i] = find(parent);
+        final int result = find(parent);
+        p[i] = result;
+
+        return result;
     }
 
     public void union(int x, int y) {
@@ -45,7 +50,7 @@ public class UnionFind {
     }
 
     public int count() {
-        List parents = new ArrayList();
+        List<Integer> parents = new ArrayList<>();
         for (int i = 0; i < p.length; i++) {
             if (!parents.contains(find(i))) {
                 parents.add(find(i));

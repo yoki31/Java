@@ -3,12 +3,12 @@ package com.thealgorithms.searches;
 import com.thealgorithms.devutils.searches.SearchAlgorithm;
 
 /*
-*  Fibonacci Search is a popular algorithm which finds the position of a target value in
-*  a sorted array
-*
-*  The time complexity for this search algorithm is O(log3(n))
-*  The space complexity for this search algorithm is O(1)
-*  @author Kanakalatha Vemuru (https://github.com/KanakalathaVemuru)
+ *  Fibonacci Search is a popular algorithm which finds the position of a target value in
+ *  a sorted array
+ *
+ *  The time complexity for this search algorithm is O(log3(n))
+ *  The space complexity for this search algorithm is O(1)
+ *  @author Kanakalatha Vemuru (https://github.com/KanakalathaVemuru)
  */
 public class FibonacciSearch implements SearchAlgorithm {
 
@@ -62,12 +62,10 @@ public class FibonacciSearch implements SearchAlgorithm {
         Integer[] integers = {1, 2, 4, 8, 16, 32, 64, 128, 256, 512};
 
         int size = integers.length;
-        Integer shouldBeFound = 128;
+        Integer targetValue = 128;
         FibonacciSearch fsearch = new FibonacciSearch();
-        int atIndex = fsearch.find(integers, shouldBeFound);
+        int atIndex = fsearch.find(integers, targetValue);
 
-        System.out.println(
-                "Should be found: " + shouldBeFound + ". Found " + integers[atIndex] + " at index " + atIndex + ". An array length " + size);
+        System.out.println("Should be found: " + targetValue + ". Found " + integers[atIndex] + " at index " + atIndex + ". An array length " + size);
     }
-
 }

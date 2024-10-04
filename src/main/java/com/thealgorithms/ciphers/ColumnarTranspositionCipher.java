@@ -7,13 +7,15 @@ import java.util.Objects;
  *
  * @author <a href="https://github.com/freitzzz">freitzzz</a>
  */
-public class ColumnarTranspositionCipher {
+public final class ColumnarTranspositionCipher {
+    private ColumnarTranspositionCipher() {
+    }
 
     private static String keyword;
     private static Object[][] table;
     private static String abecedarium;
-    public static final String ABECEDARIUM
-            = "abcdefghijklmnopqrstuvwxyzABCDEFG" + "HIJKLMNOPQRSTUVWXYZ0123456789,.;:-@";
+    public static final String ABECEDARIUM = "abcdefghijklmnopqrstuvwxyzABCDEFG"
+        + "HIJKLMNOPQRSTUVWXYZ0123456789,.;:-@";
     private static final String ENCRYPTION_FIELD = "≈";
     private static final char ENCRYPTION_FIELD_CHAR = '≈';
 
@@ -163,8 +165,7 @@ public class ColumnarTranspositionCipher {
         return columnArray;
     }
 
-    private static void switchColumns(
-            Object[][] table, int firstColumnIndex, int secondColumnIndex, Object[] columnToSwitch) {
+    private static void switchColumns(Object[][] table, int firstColumnIndex, int secondColumnIndex, Object[] columnToSwitch) {
         for (int i = 0; i < table.length; i++) {
             table[i][secondColumnIndex] = table[i][firstColumnIndex];
             table[i][firstColumnIndex] = columnToSwitch[i];
@@ -198,9 +199,7 @@ public class ColumnarTranspositionCipher {
         String wordBeingEncrypted = "This is a test of the Columnar Transposition Cipher";
         System.out.println("### Example of Columnar Transposition Cipher ###\n");
         System.out.println("Word being encryped ->>> " + wordBeingEncrypted);
-        System.out.println(
-                "Word encrypted ->>> "
-                + ColumnarTranspositionCipher.encrpyter(wordBeingEncrypted, keywordForExample));
+        System.out.println("Word encrypted ->>> " + ColumnarTranspositionCipher.encrpyter(wordBeingEncrypted, keywordForExample));
         System.out.println("Word decryped ->>> " + ColumnarTranspositionCipher.decrypter());
         System.out.println("\n### Encrypted Table ###");
         showTable();

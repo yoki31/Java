@@ -1,6 +1,5 @@
 package com.thealgorithms.sorts;
 
-import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,13 +11,11 @@ public class MergeSortRecursive {
         this.arr = arr;
     }
 
-    public void mergeSort() {
-        List<Integer> arrSorted = merge(arr);
-        System.out.println(arrSorted);
+    public List<Integer> mergeSort() {
+        return merge(arr);
     }
 
     private static List<Integer> merge(List<Integer> arr) {
-
         // base condition
         if (arr.size() <= 1) {
             return arr;
@@ -37,40 +34,27 @@ public class MergeSortRecursive {
     }
 
     private static List<Integer> sort(List<Integer> unsortedA, List<Integer> unsortedB) {
-        if (unsortedA.size() <= 0 && unsortedB.size() <= 0) {
+        if (unsortedA.isEmpty() && unsortedB.isEmpty()) {
             return new ArrayList<>();
         }
-        if (unsortedA.size() <= 0) {
+        if (unsortedA.isEmpty()) {
             return unsortedB;
         }
-        if (unsortedB.size() <= 0) {
+        if (unsortedB.isEmpty()) {
             return unsortedA;
         }
         if (unsortedA.get(0) <= unsortedB.get(0)) {
             List<Integer> newAl = new ArrayList<Integer>() {
-                {
-                    add(unsortedA.get(0));
-                }
+                { add(unsortedA.get(0)); }
             };
             newAl.addAll(sort(unsortedA.subList(1, unsortedA.size()), unsortedB));
             return newAl;
         } else {
             List<Integer> newAl = new ArrayList<Integer>() {
-                {
-                    add(unsortedB.get(0));
-                }
+                { add(unsortedB.get(0)); }
             };
             newAl.addAll(sort(unsortedA, unsortedB.subList(1, unsortedB.size())));
             return newAl;
         }
-    }
-
-}
-
-class App {
-
-    public static void main(String[] args) {
-        MergeSortRecursive sort = new MergeSortRecursive(new ArrayList<>(Arrays.asList(4, 3, 1, 8, 5, 10, 0, 1, 4, 11, 8, 9)));
-        sort.mergeSort();
     }
 }

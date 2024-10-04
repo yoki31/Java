@@ -10,39 +10,41 @@ import java.util.Arrays;
  * models how colors appear under light. In it, colors are represented using
  * three components: hue, saturation and (brightness-)value. This class provides
  * methods for converting colors from one representation to the other.
- * (description adapted from https://en.wikipedia.org/wiki/RGB_color_model and
- * https://en.wikipedia.org/wiki/HSL_and_HSV).
+ * (description adapted from <a href="https://en.wikipedia.org/wiki/RGB_color_model">[1]</a> and
+ * <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">[2]</a>).
  */
-public class RgbHsvConversion {
+public final class RgbHsvConversion {
+    private RgbHsvConversion() {
+    }
 
     public static void main(String[] args) {
         // Expected RGB-values taken from https://www.rapidtables.com/convert/color/hsv-to-rgb.html
 
         // Test hsvToRgb-method
-        assert Arrays.equals(hsvToRgb(0, 0, 0), new int[]{0, 0, 0});
-        assert Arrays.equals(hsvToRgb(0, 0, 1), new int[]{255, 255, 255});
-        assert Arrays.equals(hsvToRgb(0, 1, 1), new int[]{255, 0, 0});
-        assert Arrays.equals(hsvToRgb(60, 1, 1), new int[]{255, 255, 0});
-        assert Arrays.equals(hsvToRgb(120, 1, 1), new int[]{0, 255, 0});
-        assert Arrays.equals(hsvToRgb(240, 1, 1), new int[]{0, 0, 255});
-        assert Arrays.equals(hsvToRgb(300, 1, 1), new int[]{255, 0, 255});
-        assert Arrays.equals(hsvToRgb(180, 0.5, 0.5), new int[]{64, 128, 128});
-        assert Arrays.equals(hsvToRgb(234, 0.14, 0.88), new int[]{193, 196, 224});
-        assert Arrays.equals(hsvToRgb(330, 0.75, 0.5), new int[]{128, 32, 80});
+        assert Arrays.equals(hsvToRgb(0, 0, 0), new int[] {0, 0, 0});
+        assert Arrays.equals(hsvToRgb(0, 0, 1), new int[] {255, 255, 255});
+        assert Arrays.equals(hsvToRgb(0, 1, 1), new int[] {255, 0, 0});
+        assert Arrays.equals(hsvToRgb(60, 1, 1), new int[] {255, 255, 0});
+        assert Arrays.equals(hsvToRgb(120, 1, 1), new int[] {0, 255, 0});
+        assert Arrays.equals(hsvToRgb(240, 1, 1), new int[] {0, 0, 255});
+        assert Arrays.equals(hsvToRgb(300, 1, 1), new int[] {255, 0, 255});
+        assert Arrays.equals(hsvToRgb(180, 0.5, 0.5), new int[] {64, 128, 128});
+        assert Arrays.equals(hsvToRgb(234, 0.14, 0.88), new int[] {193, 196, 224});
+        assert Arrays.equals(hsvToRgb(330, 0.75, 0.5), new int[] {128, 32, 80});
 
         // Test rgbToHsv-method
         // approximate-assertions needed because of small deviations due to converting between
         // int-values and double-values.
-        assert approximatelyEqualHsv(rgbToHsv(0, 0, 0), new double[]{0, 0, 0});
-        assert approximatelyEqualHsv(rgbToHsv(255, 255, 255), new double[]{0, 0, 1});
-        assert approximatelyEqualHsv(rgbToHsv(255, 0, 0), new double[]{0, 1, 1});
-        assert approximatelyEqualHsv(rgbToHsv(255, 255, 0), new double[]{60, 1, 1});
-        assert approximatelyEqualHsv(rgbToHsv(0, 255, 0), new double[]{120, 1, 1});
-        assert approximatelyEqualHsv(rgbToHsv(0, 0, 255), new double[]{240, 1, 1});
-        assert approximatelyEqualHsv(rgbToHsv(255, 0, 255), new double[]{300, 1, 1});
-        assert approximatelyEqualHsv(rgbToHsv(64, 128, 128), new double[]{180, 0.5, 0.5});
-        assert approximatelyEqualHsv(rgbToHsv(193, 196, 224), new double[]{234, 0.14, 0.88});
-        assert approximatelyEqualHsv(rgbToHsv(128, 32, 80), new double[]{330, 0.75, 0.5});
+        assert approximatelyEqualHsv(rgbToHsv(0, 0, 0), new double[] {0, 0, 0});
+        assert approximatelyEqualHsv(rgbToHsv(255, 255, 255), new double[] {0, 0, 1});
+        assert approximatelyEqualHsv(rgbToHsv(255, 0, 0), new double[] {0, 1, 1});
+        assert approximatelyEqualHsv(rgbToHsv(255, 255, 0), new double[] {60, 1, 1});
+        assert approximatelyEqualHsv(rgbToHsv(0, 255, 0), new double[] {120, 1, 1});
+        assert approximatelyEqualHsv(rgbToHsv(0, 0, 255), new double[] {240, 1, 1});
+        assert approximatelyEqualHsv(rgbToHsv(255, 0, 255), new double[] {300, 1, 1});
+        assert approximatelyEqualHsv(rgbToHsv(64, 128, 128), new double[] {180, 0.5, 0.5});
+        assert approximatelyEqualHsv(rgbToHsv(193, 196, 224), new double[] {234, 0.14, 0.88});
+        assert approximatelyEqualHsv(rgbToHsv(128, 32, 80), new double[] {330, 0.75, 0.5});
     }
 
     /**
@@ -115,7 +117,7 @@ public class RgbHsvConversion {
 
         hue = (hue + 360) % 360;
 
-        return new double[]{hue, saturation, value};
+        return new double[] {hue, saturation, value};
     }
 
     private static boolean approximatelyEqualHsv(double[] hsv1, double[] hsv2) {
@@ -126,8 +128,7 @@ public class RgbHsvConversion {
         return bHue && bSaturation && bValue;
     }
 
-    private static int[] getRgbBySection(
-            double hueSection, double chroma, double matchValue, double secondLargestComponent) {
+    private static int[] getRgbBySection(double hueSection, double chroma, double matchValue, double secondLargestComponent) {
         int red;
         int green;
         int blue;
@@ -158,7 +159,7 @@ public class RgbHsvConversion {
             blue = convertToInt(secondLargestComponent + matchValue);
         }
 
-        return new int[]{red, green, blue};
+        return new int[] {red, green, blue};
     }
 
     private static int convertToInt(double input) {

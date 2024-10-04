@@ -7,7 +7,9 @@ import java.util.Scanner;
  * For detailed info and implementation see: <a
  * href="http://devmag.org.za/2009/04/25/perlin-noise/">Perlin-Noise</a>
  */
-public class PerlinNoise {
+public final class PerlinNoise {
+    private PerlinNoise() {
+    }
 
     /**
      * @param width width of noise array
@@ -17,8 +19,7 @@ public class PerlinNoise {
      * @param seed used for randomizer
      * @return float array containing calculated "Perlin-Noise" values
      */
-    static float[][] generatePerlinNoise(
-            int width, int height, int octaveCount, float persistence, long seed) {
+    static float[][] generatePerlinNoise(int width, int height, int octaveCount, float persistence, long seed) {
         final float[][] base = new float[width][height];
         final float[][] perlinNoise = new float[width][height];
         final float[][][] noiseLayers = new float[octaveCount][][];

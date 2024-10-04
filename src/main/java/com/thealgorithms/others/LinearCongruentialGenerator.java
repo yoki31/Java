@@ -9,7 +9,10 @@ package com.thealgorithms.others;
  */
 public class LinearCongruentialGenerator {
 
-    private double a, c, m, previousValue;
+    private final double a;
+    private final double c;
+    private final double m;
+    private double previousValue;
 
     /**
      * *
@@ -35,8 +38,7 @@ public class LinearCongruentialGenerator {
      * @param modulo The maximum number that can be generated (exclusive). A
      * common value is 2^32.
      */
-    public LinearCongruentialGenerator(
-            double seed, double multiplier, double increment, double modulo) {
+    public LinearCongruentialGenerator(double seed, double multiplier, double increment, double modulo) {
         this.previousValue = seed;
         this.a = multiplier;
         this.c = increment;
@@ -58,8 +60,7 @@ public class LinearCongruentialGenerator {
         // Show the LCG in action.
         // Decisive proof that the LCG works could be made by adding each number
         // generated to a Set while checking for duplicates.
-        LinearCongruentialGenerator lcg
-                = new LinearCongruentialGenerator(1664525, 1013904223, Math.pow(2.0, 32.0));
+        LinearCongruentialGenerator lcg = new LinearCongruentialGenerator(1664525, 1013904223, Math.pow(2.0, 32.0));
         for (int i = 0; i < 512; i++) {
             System.out.println(lcg.nextNumber());
         }
